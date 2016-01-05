@@ -38,8 +38,6 @@ class MealTableViewController: UITableViewController {
         let meal3 = Meal(name: "Pasta with Meatballs", photo: photo3, rating: 3)!
         
         meals += [meal1, meal2, meal3]
-        
-        print(meals)
     }
 
     override func didReceiveMemoryWarning() {
@@ -117,5 +115,13 @@ class MealTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? MealViewController, meal = sourceViewController.meal {
+            // Add a new meal.
+            let newIndexPath = NSIndexPath(forRow: meals.count, inSection: 0)
+            meals.append(meal)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        }
+    }
 }
